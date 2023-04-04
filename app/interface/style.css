@@ -1,0 +1,206 @@
+* {
+    font-family: monospace;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+input {
+    outline: none !important;
+    border: 1px solid #C0AC00;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+div.main {
+    display: grid;
+    grid-template-areas: "common_params meds";
+    grid-template-rows: 100vh;
+    grid-template-columns: 2fr 6fr;
+}
+div.main__common-params {
+    grid-area: common_params;
+    display: flex;
+    flex-direction: column;
+}
+div.main__common-params div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+#period {
+    flex-direction: column;
+}
+
+#col {
+    flex-direction: row;
+}
+
+div.main__common-params h2 {
+    text-align: center;
+}
+div.main__common-params h3 {
+    text-align: center;
+}
+div.main__common-params label {
+    margin: 10px;
+}
+div.main__meds {
+    grid-area: meds;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    padding: 0 10px;
+    overflow-y: scroll;
+}
+div.medicine-card {
+    display: grid;
+    grid-template: "med_name med_code med_type med_portion med_price add_del_btn";
+    border-radius: 10px;
+    padding: 10px 0 10px 10px;
+    margin: 5px 0 10px 0;
+    background-color: #FAF9EE;
+    width: 98%;
+}
+div.medicine-card input {
+    width: 90%;
+}
+div.medicine-card > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+div.medicine-card div * {
+    margin: 2px;
+}
+div.med_name {grid-area: med_name;}
+div.med_code {grid-area: med_code;}
+div.med_code input {text-transform: uppercase;}
+div.med_portion {grid-area: med_portion;}
+div.med_price {grid-area: med_price;}
+div.add_del_btn {grid-area: add_del_btn; display: flex; justify-content: center;}
+div.button {
+    border-radius: 5px;
+    padding: 10px;
+    height: fit-content;
+    cursor: pointer;
+    width: fit-content;
+}
+div.button_yellow {
+    background-color: #9D942E;
+    color: black;
+}
+div.button_yellow:hover {
+    background-color: #C0AC00;
+}
+div.button_red {
+    background-color: #CA804A;
+    color: black;
+}
+div.button_red:hover {
+    background-color: #C14C00;
+    color: black;
+}
+div.start-button {
+    margin-top: fill;
+}
+
+#progressView {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#progressBar {
+    width: 20vw;
+}
+
+#resultsView {
+    display: none;
+    grid-template:
+        "kkk log_header"
+        "stats logs"
+        "choose logs";
+    grid-template-rows: 10vh 60vh 30vh;
+    grid-template-columns: 50vw 50vw;
+    overflow-y: scroll;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FAF9EE;
+}
+
+div.choose {
+    grid-area: choose;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.choose div {
+    margin: 10px;
+    margin-top: 100px;
+}
+
+div.stats {
+    grid-area: stats;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+div.stats h3 {
+    text-align: center;
+}
+div.stats div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 150px;
+}
+
+div.log_header {
+    grid-area: log_header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.logs {
+    grid-area: logs;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 8px rgba(34, 60, 80, 0.1);
+    padding: 20px;
+    overflow-y: scroll;
+}
+div.logs > div {
+    margin: 10px;
+}
+div.logs > div > div:hover {
+    background-color: #F5F5F5;
+    border-radius: 5px;
+}
+div.logs > div > * {
+    padding: 10px;
+}
+div.logs > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h1.profit, b.profit {
+    color: black;
+}
+h1.loss, b.loss {
+    color: black;
+}
