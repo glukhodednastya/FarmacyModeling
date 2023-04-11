@@ -6,7 +6,9 @@ from typing import Optional
 class Customer:
     first_name: str
     last_name: str
-    phone: str
+    phone_number: str
     address: str
     card: Optional[str] = None
 
+    def is_regular(self) -> bool:
+        return self.card is not None

@@ -8,8 +8,8 @@ from app.models.courier import Courier
 
 @dataclass
 class Order:
-    delivery_time: timedelta
-    ordered_at: datetime
+    delivered: timedelta
+    order_date: datetime
     total_price: float
     customer: Customer = None
     courier: Courier or None = None
@@ -21,3 +21,9 @@ class OrderedItem:
     order: Order
     item: MedicineItem = None
 
+
+@dataclass
+class RegularOrderedMedicineItem:
+    item: MedicineItem
+    customer: Customer
+    repeat_days_period: int

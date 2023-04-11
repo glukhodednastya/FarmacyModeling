@@ -1,0 +1,101 @@
+<html lang="ru">
+<head>
+    <title>Аптека</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="paramsView" class="main">
+    <div class="main__common-params">
+        <h3>Параметры моделирования</h3>
+        <div id="period">
+            <label> Период моделирования</label>
+            <div id="col">
+                <input type="date" id="date_from" value="2023-03-01" required>
+                <div>-</div>
+                <input type="date" id="date_to" value="2023-03-10" required>
+            </div>
+        </div>
+        <div>
+            <label for="budget">Начальный бюджет, руб</label>
+            <input type="number" id="budget" value="100000" required>
+        </div>
+        <div>
+            <label for="margin">Розничная наценка, %</label>
+            <input type="number" id="margin" value="50" required>
+        </div>
+        <div>
+            <label for="supply_size">Объем поставки, шт</label>
+            <input type="number" id="supply_size" value="100" required>
+        </div>
+        <div>
+            <label for="couriers_amount">Количество курьеров, чел</label>
+            <input type="number" id="couriers_amount" value="6" required>
+        </div>
+        <div>
+            <label for="working_hours">Время работы курьера, ч</label>
+            <input type="number" id="working_hours" value="5" required>
+        </div>
+        <div>
+            <label for="salary">Зарплата, руб</label>
+            <input type="number" id="salary" value="10000" required>
+        </div>
+        <div class="start-button">
+            <div></div>
+            <div class="button button_green" id="startModelingButton">Начать моделирование</div>
+            <div></div>
+        </div>
+    </div>
+    <div class="main__meds">
+        <h3>Список лекарств</h3>
+        <div id="medicinesList"></div>
+    </div>
+</div>
+<div id="progressView">
+    <div>
+        <p>Загрузка...</p>
+        <progress id="progressBar" value="0" max="100"></progress>
+    </div>
+</div>
+<div id="resultsView">
+    <div class="stats">
+        <div>
+            <h3>Прибыль</h3>
+            <h1 id="profitValue">-</h1>
+        </div>
+        <div>
+            <h3>Доставлено заказов</h3>
+            <h1 id="ordersDeliveredValue">-</h1>
+        </div>
+        <div>
+            <h3>Среднее ожидание</h3>
+            <h1 id="ordersInProgressValue">-</h1>
+        </div>
+        <div>
+            <h3>Цена товаров на складе</h3>
+            <h1 id="stockPriceValue">-</h1>
+        </div>
+        <div>
+            <h3>Загрузка курьеров</h3>
+            <h1 id="courierLoad">-</h1>
+        </div>
+        <div>
+            <h3>Убыток от утилизации просроченных товаров</h3>
+            <h1 id="utilizationLoss">-</h1>
+        </div>
+    </div>
+    <div class="log_header">
+        <h1>История заказов</h1>
+    </div>
+    <div id="logsList" class="logs">
+    </div>
+    <div class="nana">
+        <div class="button button_red" id="startAgain">Начать сначала</div>
+        <div class="button button_green" id="getNextDay">Следующий день</div>
+        <div class="button button_green" id="runUntilComplete">Запустить до конца</div>
+    </div>
+</div>
+<script type="text/javascript" src="/eel.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

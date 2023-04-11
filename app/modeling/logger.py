@@ -14,25 +14,36 @@ class Logger:
 
     def add(self, msg: str = '', tag: str = '', profit: float = 0, loss: float = 0, hidden=False, meta=None):
         self._logs[ModelingConfig().cur_date].append(
-            {'msg': msg,
-             'tag': tag,
-             'profit': profit or -loss,
-             'meta': meta or {},
-             'hidden': hidden})
+            {
+                'msg': msg,
+                'tag': tag,
+                'profit': profit or -loss,
+                'meta': meta or {},
+                'hidden': hidden,
+            },
+        )
 
     @property
-    def logs(self):
+    def logs(self) -> list:
         result = []
         for date in sorted(self._logs.keys()):
-            result.append({'date': date.strftime('%d.%m.%Y'),
-                           'logs': [lg for lg in self._logs[date] if not lg['hidden']]})
+            result.append(
+                {
+                    'date': date.strftime('%d.%m.%Y'),
+                    'logs': [lg for lg in self._logs[date] if not lg['hidden']],
+                },
+            )
         return result
 
     @property
     def last_day_log(self):
         last_date = max(self._logs.keys())
-        return [{'date': last_date.strftime('%d.%m.%Y'),
-                 'logs': [lg for lg in self._logs[last_date] if not lg['hidden']]}]
+        return [
+            {
+                'date': last_date.strftime('%d.%m.%Y'),
+                'logs': [lg for lg in self._logs[last_date] if not lg['hidden']],
+            },
+        ]
 
     def get_average_waiting_time(self):
         _data = []
@@ -46,10 +57,11 @@ class Logger:
             _data.extend([log['meta']['wait_time'] for log in day if 'wait_time' in log['meta']])
         return len(_data)
 
+
     def reset(self):
         self._logs.clear()
 
-    def get_average_couriers_load(self):
+    def get_average_couriers_load(self) -> float:
         _data = []
         for day in self._logs.values():
             _data.extend([log['meta']['courier_load'] for log in day if log['tag'] == 'courier_load'])

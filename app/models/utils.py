@@ -1,4 +1,5 @@
 class BarcodeGenerator:
+
     __cache = {}
 
     @classmethod

@@ -9,10 +9,11 @@ from app.controls.base import BaseControl
 
 
 class ProviderControl(BaseControl):
-    supply_queue = defaultdict(list)
-    requested_items = defaultdict(int)
 
-    def get_supply(self, date_):
+    supply_queue = defaultdict(list)  # type: dict[date, list[MedicineItem]]
+    requested_items = defaultdict(int)  # type: dict[str, int]
+
+    def get_supply(self, date_: date) -> list[MedicineItem]:
         return self.supply_queue.get(date_, [])
 
     def create_supply(self, code):
@@ -27,13 +28,13 @@ class ProviderControl(BaseControl):
         ])
 
         Logger().add(
-            f'Заказ препарата {medicine.name} '
+            f'Заказан прерапат {medicine.name} '
             f'на сумму {medicine.retail_price * ModelingConfig().supply_size} рублей. '
-            f'Заказ поступит на склад {supply_date.strftime("%d.%m.%Y")}',
+            f'Заказ прибудет на склад {supply_date.strftime("%d.%m.%Y")}',
             loss=medicine.retail_price * ModelingConfig().supply_size,
         )
 
-    def request(self, medicines):
+    def request(self, medicines: dict[str, int]):
         for code, amount in medicines.items():
             self.requested_items[code] += amount
             if self.requested_items[code] > 0:
