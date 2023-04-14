@@ -22,9 +22,8 @@ SECOND_NAMES = [
 
 class CustomerWork(BaseWork):
     model = Customer
-
     first_name = (lambda: FIRST_NAMES[randint(0, len(FIRST_NAMES) - 1)])
     last_name = (lambda: SECOND_NAMES[randint(0, len(SECOND_NAMES) - 1)])
-    phone_number = '+78005553535'
+    phone_number = '+7905467283'
     address = 'Moscow'
     card = None

@@ -14,7 +14,7 @@ class OrdersControl(BaseControl):
     ordered_items: list[OrderedItem] = []
     regular_ordered_items: list[RegularOrderedMedicineItem] = []
 
-    def distribute_orders_to_couriers(self) -> None:
+    def distribute_orders_to_couriers(self):
         couriers = CouriersControl().couriers
         for courier in couriers:
             courier_time_left = courier.working_hours
@@ -48,9 +48,9 @@ class OrdersControl(BaseControl):
                     meta={'wait_time': (ModelingConfig().cur_date - order.order_date.date()).days},
                     hidden=True,
                 )
-                self.orders_queue.remove(order)  # процесс доставки/приемки не моделируется
+                self.orders_queue.remove(order)
 
-    def order_in_stock(self, order: Order) -> bool:
+    def order_in_stock(self, order: Order):
         ordered_items = self.get_ordered_items_by_order(order)
         stock = StockControl()
         medicines_in_order = {}
@@ -65,7 +65,7 @@ class OrdersControl(BaseControl):
                 return False
         return True
 
-    def get_ordered_items_by_order(self, order: Order) -> list[OrderedItem]:
+    def get_ordered_items_by_order(self, order: Order):
         return [
             item for item
             in self.ordered_items
@@ -73,13 +73,10 @@ class OrdersControl(BaseControl):
         ]
 
 
-    def make_new_requests(self) -> None:
-        """
-        Смотрит, каких лекарств из очереди нет на складе и создает заказы поставщику
-        """
+    def make_new_requests(self):
         stock = StockControl()
-        medicines_in_queue = {}  # {код_лекарства: количество}
-        medicines_to_request = {}  # {код_лекарства: количество}
+        medicines_in_queue = {}
+        medicines_to_request = {}
         for ordered_item in self.ordered_items:
             code = ordered_item.medicine.code
             if code in medicines_in_queue:
@@ -91,10 +88,6 @@ class OrdersControl(BaseControl):
             medicines_in_stock = stock.amount_in_stock(code)
             if medicines_in_stock < medicines_in_queue[code]:
                 medicines_to_request[code] = medicines_in_queue[code] - medicines_in_stock
-
-        # поставщик отправляет товары партиями фиксированного размера,
-        # поэтому новая партия формируется только если в прошлой не хватает
-        # эта логика находится не в OrdersControl, а в ProviderControl
         ProviderControl().request(medicines_to_request)
 
     def count_profit(self, order: Order):

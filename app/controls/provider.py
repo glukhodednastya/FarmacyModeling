@@ -10,10 +10,10 @@ from app.controls.base import BaseControl
 
 class ProviderControl(BaseControl):
 
-    supply_queue = defaultdict(list)  # type: dict[date, list[MedicineItem]]
-    requested_items = defaultdict(int)  # type: dict[str, int]
+    supply_queue = defaultdict(list)
+    requested_items = defaultdict(int)
 
-    def get_supply(self, date_: date) -> list[MedicineItem]:
+    def get_supply(self, date_):
         return self.supply_queue.get(date_, [])
 
     def create_supply(self, code):
@@ -34,7 +34,7 @@ class ProviderControl(BaseControl):
             loss=medicine.retail_price * ModelingConfig().supply_size,
         )
 
-    def request(self, medicines: dict[str, int]):
+    def request(self, medicines):
         for code, amount in medicines.items():
             self.requested_items[code] += amount
             if self.requested_items[code] > 0:

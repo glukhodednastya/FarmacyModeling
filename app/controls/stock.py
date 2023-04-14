@@ -8,23 +8,23 @@ from app.models.medicine import MedicineItem, Medicine
 
 class StockControl(BaseControl):
 
-    items = {}  # type: dict[str, MedicineItem]
+    items = {}
 
-    def add(self, items: list[MedicineItem]):
+    def add(self, items):
         for item in items:
             self.items[item.barcode] = item
 
-    def pop(self, barcode: str) -> MedicineItem:
+    def pop(self, barcode):
         if barcode not in self.items:
             raise MedicineNotFound(barcode)
         return self.items.pop(barcode)
 
-    def pop_by_code(self, code: str) -> MedicineItem:
+    def pop_by_code(self, code):
         for barcode, item in self.items.items():
             if item.medicine.code == code:
                 return self.pop(barcode)
 
-    def item_in_stock(self, item: MedicineItem) -> bool:
+    def item_in_stock(self, item: MedicineItem):
         return item.barcode in self.items
 
     def medicine_in_stock(self, medicine: Medicine):
@@ -33,7 +33,7 @@ class StockControl(BaseControl):
                 return item.barcode
         return None
 
-    def amount_in_stock(self, medicine_code: str):
+    def amount_in_stock(self, medicine_code):
         return len([
             item for item
             in self.items.values()
@@ -70,7 +70,7 @@ class StockControl(BaseControl):
                          f' ({", ".join(set([med.medicine.name for med in supply]))})')
 
     @property
-    def total_price(self) -> float:
+    def total_price(self):
         return sum(
             med.price for med in self.items.values()
             if med.expires_at >= ModelingConfig().cur_date

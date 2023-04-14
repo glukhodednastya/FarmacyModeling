@@ -2,13 +2,11 @@ from random import randint
 from datetime import date, timedelta
 
 from app.models.medicine import MedicineItem
-
-from app.factories.base import BaseWork
+from app.works.base import BaseWork
 
 
 class MedicineItemWork(BaseWork):
     model = MedicineItem
-
     medication_size = 100
     group = ''
     type = ''

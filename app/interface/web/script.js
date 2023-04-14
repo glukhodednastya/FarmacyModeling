@@ -31,7 +31,7 @@ function showResults(profit, ordersDelivered, ordersInProgress, stockPrice, logs
     document.getElementById('courierLoad').innerText = (
         couriersLoad === -1 ? '—' :
             `${Math.round(couriersLoad.toFixed(2) * 100)} %`)
-    document.getElementById('utilizationLoss').innerText = `${utilizationLoss.toFixed(2)} ₽`
+    document.getElementById('utilizationLoss').innerText = `${utilizationLoss.toFixed(2)}руб`
 
     printLogs(logs)
 
@@ -103,11 +103,12 @@ let medicines = [
     },
     {
         'name': 'Нурофен',
-        'code': '345',
+        'code': '678',
         'medication_size': 100,
         'retail_price': 300
     }
 ]
+
 function drawMedicines() {
     let newMedicinesListContent = ''
     let i = 0
@@ -237,6 +238,7 @@ function getNextDay() {
     console.log(data)
     eel.get_next_day(data)
 }
+
 document.getElementById('startModelingButton').onclick = getNextDay
 document.getElementById('getNextDay').onclick = getNextDay
 

@@ -10,5 +10,5 @@ class Customer:
     address: str
     card: Optional[str] = None
 
-    def is_regular(self) -> bool:
+    def is_regular(self):
         return self.card is not None

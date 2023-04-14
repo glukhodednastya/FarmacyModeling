@@ -17,10 +17,9 @@ from app.models.order import Order, OrderedItem
 
 
 class ModelingManager:
-
     orders_ctl = OrdersControl()
     stock_ctl = StockControl()
-    logs = []  # type: list[dict]
+    logs = []
 
     def __init__(
         self,
@@ -36,11 +35,9 @@ class ModelingManager:
         **kwargs,
     ):
         exp_conf = ModelingConfig()
-
         exp_conf.medicines = medicines
         for med in medicines:
             exp_conf.code_to_medicine[med.code] = med
-
         exp_conf.margin = margin
         exp_conf.budget = budget
         exp_conf.start_budget = budget
@@ -52,15 +49,14 @@ class ModelingManager:
         exp_conf.date_to = date_to
 
         CouriersControl().couriers = couriers
-
         Logger().reset()
         StockControl().reset()
         ProviderControl().reset()
 
     def run(
         self,
-        date_from: date,
-        date_to: date,
+        date_from,
+        date_to,
         progress_callback: Callable = (lambda x: print(f'Progress: {x}%')),
     ):
         if date_from > date_to:
@@ -83,8 +79,8 @@ class ModelingManager:
 
         self.create_new_orders()
         OrdersControl().make_new_requests()
-
-        ModelingConfig().cur_date += timedelta(1)
+        if ModelingConfig().cur_date.day <= ModelingConfig().date_to.day-1:
+            ModelingConfig().cur_date += timedelta(1)
 
     def create_new_orders(self):
         max_delivered_minutes = max(
